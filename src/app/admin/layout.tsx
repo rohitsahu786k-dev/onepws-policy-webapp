@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, FolderTree, FileText, LogOut, Menu, X, User } from 'lucide-react';
+import { LayoutDashboard, Users, FolderTree, FileText, LogOut, Menu, X, User, Settings as SettingsIcon } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/components/ui/components';
 
@@ -11,6 +11,7 @@ const sidebarItems = [
   { name: 'User Approval', icon: Users, path: '/admin/users' },
   { name: 'Categories', icon: FolderTree, path: '/admin/categories' },
   { name: 'Documents', icon: FileText, path: '/admin/documents' },
+  { name: 'Settings', icon: SettingsIcon, path: '/admin/settings' },
   { name: 'Profile', icon: User, path: '/admin/profile' },
 ];
 
@@ -49,7 +50,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       >
         <div className="flex flex-col h-full p-5">
           <div className="flex items-center px-2 py-6 mb-3">
-            <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-20 w-auto" />
+            <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-28 w-auto object-contain" />
           </div>
 
           <nav className="flex-1 space-y-2">

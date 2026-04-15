@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-be-vietnam-pro",
 });
 
 export const metadata: Metadata = {
-  title: "Policy WebApp",
+  title: "OnePWS pvt ltd",
   description: "Secure policy document portal",
   icons: {
-    icon: "/favicon.svg",
+    icon: "/uploads/favicon.png",
   },
 };
 
@@ -21,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+    <html lang="en" className={`${beVietnamPro.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-background text-foreground font-be-vietnam-pro">
         {children}
       </body>
     </html>

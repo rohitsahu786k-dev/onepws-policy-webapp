@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'danger' | 'gradient';
+  variant?: 'primary' | 'secondary' | 'outline' | 'danger';
 }
 
 export function Button({ className, variant = 'primary', ...props }: ButtonProps) {
@@ -16,7 +16,6 @@ export function Button({ className, variant = 'primary', ...props }: ButtonProps
     secondary: 'bg-card text-white border border-border hover:bg-black',
     outline: 'bg-transparent border border-border text-white hover:bg-card',
     danger: 'bg-red-600 text-white hover:bg-red-700',
-    gradient: 'bg-gradient-to-r from-primary to-black text-white hover:from-primary-hover hover:to-neutral-900 shadow-[0_0_15px_rgba(234,45,45,0.3)]',
   };
 
   return (

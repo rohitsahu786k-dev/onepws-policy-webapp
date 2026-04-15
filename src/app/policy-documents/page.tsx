@@ -102,7 +102,7 @@ export default function PolicyDocumentsPage() {
     <div className="min-h-screen bg-black">
       <header className="sticky top-0 z-30 border-b border-border bg-black/85 px-5 py-4 backdrop-blur-md md:px-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-12 w-auto md:h-14" />
+          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-16 w-auto md:h-20 object-contain" />
 
           <div className="flex flex-1 items-center justify-end gap-3">
             <div className="relative hidden w-full max-w-md sm:block">

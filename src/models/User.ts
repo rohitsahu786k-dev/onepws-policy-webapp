@@ -10,6 +10,8 @@ export interface IUser extends Document {
   profileImageUrl?: string;
   passwordResetToken?: string;
   passwordResetExpiresAt?: Date;
+  activationToken?: string;
+  activationTokenExpiresAt?: Date;
   role: 'user' | 'admin';
   status: 'pending' | 'approved' | 'rejected' | 'blocked';
   createdAt: Date;
@@ -27,6 +29,8 @@ const UserSchema: Schema = new Schema(
     profileImageUrl: { type: String, default: '' },
     passwordResetToken: { type: String, default: '' },
     passwordResetExpiresAt: { type: Date, default: null },
+    activationToken: { type: String, default: '' },
+    activationTokenExpiresAt: { type: Date, default: null },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     status: { type: String, enum: ['pending', 'approved', 'rejected', 'blocked'], default: 'pending' },
   },

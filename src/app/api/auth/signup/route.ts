@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import connectDB from '@/lib/db';
 import User from '@/models/User';
 import { getErrorMessage } from '@/lib/errors';
-import { sendApprovalStatusEmail, sendNewSignupEmail } from '@/lib/email';
+import { sendActivationEmail, sendNewSignupEmail } from '@/lib/email';
 
 export async function POST(req: Request) {
   try {
@@ -23,10 +24,14 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    // First user becomes admin automatically for convenience, others are pending users
+    // First user becomes admin automatically, others are pending users
     const userCount = await User.countDocuments();
     const role = userCount === 0 ? 'admin' : 'user';
     const status = userCount === 0 ? 'approved' : 'pending';
+
+    // Generate activation token
+    const activationToken = crypto.randomBytes(32).toString('hex');
+    const activationTokenExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     const newUser = new User({
       name: cleanName,
@@ -34,19 +39,26 @@ export async function POST(req: Request) {
       password: hashedPassword,
       role,
       status,
+      activationToken,
+      activationTokenExpiresAt,
     });
 
     await newUser.save();
 
-    // Send emails to both admin and user
+    // App URL for activation link
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const activationLink = `${appUrl}/api/auth/activate/${activationToken}`;
+
+    // Send emails
     await Promise.allSettled([
-      // Always notify admin about new signup
-      sendNewSignupEmail({ name: newUser.name, email: newUser.email, status: newUser.status }),
-      // Always notify user about their account status
-      sendApprovalStatusEmail({ name: newUser.name, email: newUser.email, status: newUser.status }),
+      // Send activation email to approvers (this contains the activation button)
+      sendActivationEmail({ name: newUser.name, email: newUser.email, activationLink }),
     ]);
 
-    return NextResponse.json({ message: 'User registered successfully', status: newUser.status }, { status: 201 });
+    return NextResponse.json({ 
+      message: 'Signup successful. An administrator will review and activate your account.', 
+      status: newUser.status 
+    }, { status: 201 });
   } catch (error: unknown) {
     return NextResponse.json({ message: getErrorMessage(error, 'Unable to register user') }, { status: 500 });
   }

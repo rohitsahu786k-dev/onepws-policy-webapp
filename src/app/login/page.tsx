@@ -54,7 +54,7 @@ function LoginContent() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
-          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-12 w-auto" />
+          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-20 w-auto object-contain" />
         </div>
         
         <Card className="shadow-2xl border-primary/10">

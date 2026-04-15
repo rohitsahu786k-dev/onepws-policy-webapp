@@ -42,8 +42,8 @@ export default function SignupPage() {
           </div>
           <h1 className="text-2xl font-bold mb-2">Registration Successful!</h1>
           <p className="text-muted mb-8">
-            Your account has been created and is now pending admin approval.
-            You will be redirected to the login page shortly.
+            An activation link has been sent to the administrator. 
+            Once your account is activated, you will receive a confirmation email.
           </p>
           <Loader2 className="animate-spin mx-auto text-primary" size={24} />
         </Card>
@@ -55,7 +55,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <div className="w-full max-w-md">
         <div className="flex justify-center mb-8">
-          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-12 w-auto" />
+          <img src="/uploads/onepws-logo.png" alt="OnePWS Logo" className="h-20 w-auto object-contain" />
         </div>
 
         <Card className="shadow-2xl border-primary/10">

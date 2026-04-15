@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     pathname === '/forgot-password' ||
     pathname === '/reset-password' ||
     pathname === '/' ||
-    pathname === '/favicon.ico'
+    pathname === '/uploads/favicon.png'
   ) {
     return NextResponse.next();
   }
@@ -50,6 +50,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/((?!_next/static|_next/image|uploads/favicon.png).*)',
   ],
 };
