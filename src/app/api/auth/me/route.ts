@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { mkdir, writeFile } from 'fs/promises';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 import connectDB from '@/lib/db';
 import User from '@/models/User';
 import { verifyAuth } from '@/lib/auth';
 import { getErrorMessage } from '@/lib/errors';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret';
 
@@ -147,23 +145,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Profile photo must be 10 MB or less' }, { status: 400 });
     }
 
-    const extension = path.extname(file.name || '').toLowerCase();
-    if (!['.jpg', '.jpeg', '.png', '.webp'].includes(extension) || !file.type.startsWith('image/')) {
-      return NextResponse.json({ message: 'Upload a JPG, PNG, or WebP image' }, { status: 400 });
+    if (!file.type.startsWith('image/')) {
+      return NextResponse.json({ message: 'Upload an image file (JPG, PNG, or WebP)' }, { status: 400 });
     }
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'Profiles');
-    await mkdir(uploadDir, { recursive: true });
-
-    const fileName = `${auth.userId}-${uuidv4()}${extension}`;
-    const filePath = path.join(uploadDir, fileName);
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(filePath, buffer);
+    const filename = `profile-${auth.userId}`;
 
-    const profileImageUrl = `/uploads/Profiles/${fileName}`;
+    const { secure_url } = await uploadToCloudinary(buffer, filename, 'profiles', 'image');
+
     const user = await User.findByIdAndUpdate(
       auth.userId,
-      { profileImageUrl },
+      { profileImageUrl: secure_url },
       { new: true }
     ).select('-password');
 
