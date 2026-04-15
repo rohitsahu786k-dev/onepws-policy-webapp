@@ -5,11 +5,11 @@ import { sendActivationConfirmationEmail } from '@/lib/email';
 
 export async function GET(
   req: Request,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
   try {
     await connectDB();
-    const { token } = params;
+    const { token } = await params;
 
     const user = await User.findOne({
       activationToken: token,
