@@ -32,7 +32,7 @@ export async function GET(
     await sendActivationConfirmationEmail({ name: user.name, email: user.email });
 
     // Redirect to login or show success message
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://onepws-policies.vercel.app';
     return NextResponse.redirect(`${appUrl}/login?activated=true`);
   } catch (error) {
     console.error('Activation error:', error);

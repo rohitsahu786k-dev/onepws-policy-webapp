@@ -26,15 +26,15 @@ export async function POST(req: Request) {
     const tokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
 
     // Set expiration to 1 hour from now
-    const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 1);
+    const resetTokenExpiresAt = new Date(Date.now() + 3600000); // 1 hour
 
     user.passwordResetToken = tokenHash;
-    user.passwordResetExpiresAt = expiresAt;
+    user.passwordResetExpiresAt = resetTokenExpiresAt;
     await user.save();
 
     // Send email with reset link
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}&email=${encodeURIComponent(user.email)}`;
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://onepws-policies.vercel.app';
+    const resetLink = `${appUrl}/reset-password?token=${resetToken}&email=${encodeURIComponent(user.email)}`;
 
     await sendForgotPasswordEmail({
       name: user.name,

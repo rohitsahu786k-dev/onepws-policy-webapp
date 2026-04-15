@@ -44,9 +44,9 @@ export async function POST(req: Request) {
     });
 
     await newUser.save();
-
+  
     // App URL for activation link
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://onepws-policies.vercel.app';
     const activationLink = `${appUrl}/api/auth/activate/${activationToken}`;
 
     // Send emails
