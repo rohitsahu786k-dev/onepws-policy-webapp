@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Users, FolderTree, FileText, LogOut, Menu, X, User, Settings as SettingsIcon } from 'lucide-react';
+import { LayoutDashboard, Users, UserPlus, FolderTree, FileText, LogOut, Menu, X, User, Settings as SettingsIcon } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/components/ui/components';
 
 const sidebarItems = [
   { name: 'Dashboard', icon: LayoutDashboard, path: '/admin' },
   { name: 'User Approval', icon: Users, path: '/admin/users' },
+  { name: 'Create User', icon: UserPlus, path: '/admin/create-user' },
   { name: 'Categories', icon: FolderTree, path: '/admin/categories' },
   { name: 'Documents', icon: FileText, path: '/admin/documents' },
   { name: 'Settings', icon: SettingsIcon, path: '/admin/settings' },

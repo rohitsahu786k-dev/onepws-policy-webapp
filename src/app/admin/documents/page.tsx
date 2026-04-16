@@ -223,14 +223,14 @@ export default function DocumentManagement() {
                   <input
                     id="file-upload"
                     type="file"
-                    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
                     className="absolute inset-0 opacity-0 cursor-pointer"
                     required
                   />
                   <Upload className="mx-auto mb-2 text-muted" size={24} />
                   <p className="text-sm text-muted">
-                    {file ? file.name : 'Click to upload PDF, Word, Excel, or PowerPoint'}
+                    {file ? file.name : 'Click to upload Document or Image'}
                   </p>
                   <p className="text-xs text-muted mt-2">Max size: 500 MB</p>
                 </div>

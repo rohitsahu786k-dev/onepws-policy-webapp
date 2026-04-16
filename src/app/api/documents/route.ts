@@ -10,7 +10,7 @@ import { uploadToCloudinary } from '@/lib/cloudinary';
 
 // Maximum file size in bytes (500 MB by default, configurable via env var)
 const MAX_FILE_SIZE = parseInt(process.env.MAX_DOCUMENT_SIZE_MB || '500', 10) * 1024 * 1024;
-const ALLOWED_EXTENSIONS = new Set(['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx']);
+const ALLOWED_EXTENSIONS = new Set(['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.jpg', '.jpeg', '.png', '.webp', '.gif']);
 const ALLOWED_TYPES = new Set([
   'application/pdf',
   'application/msword',
@@ -19,6 +19,10 @@ const ALLOWED_TYPES = new Set([
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   'application/vnd.ms-powerpoint',
   'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif'
 ]);
 
 export async function GET(req: Request) {
@@ -97,7 +101,7 @@ export async function POST(req: Request) {
     const originalName = file.name || 'document';
     const extension = path.extname(originalName).toLowerCase();
     if (!ALLOWED_EXTENSIONS.has(extension) || (file.type && !ALLOWED_TYPES.has(file.type))) {
-      return NextResponse.json({ message: 'Upload a PDF, Word, Excel, or PowerPoint document' }, { status: 400 });
+      return NextResponse.json({ message: 'Upload a supported Document or Image format' }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();

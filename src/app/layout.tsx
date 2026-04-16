@@ -9,8 +9,21 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "OnePWS pvt ltd",
-  description: "Secure policy document portal",
+  title: "OnePWS Policy Portal - Secure Document Management",
+  description: "OnePWS secure portal for managing, approving, and accessing internal policy documents and resources.",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'none',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: "/uploads/favicon.png",
   },

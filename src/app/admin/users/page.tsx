@@ -136,7 +136,7 @@ export default function UserManagement() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">User management</h1>
-        <p className="mt-2 text-sm text-muted">Create users, approve access, block accounts, and remove inactive users.</p>
+        <p className="mt-2 text-sm text-muted">Approve access, block accounts, and remove inactive users.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -167,56 +167,8 @@ export default function UserManagement() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
-        <Card>
-          <h2 className="mb-6 flex items-center gap-2 text-xl font-bold">
-            <Plus size={20} className="text-primary" />
-            Create user
-          </h2>
-          <form onSubmit={handleCreateUser} className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted">Full name</label>
-              <Input value={newUser.name} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted">Email</label>
-              <Input type="email" value={newUser.email} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted">Temporary password</label>
-              <Input type="text" minLength={8} value={newUser.password} onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} required />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted">Role</label>
-              <select
-                className="w-full rounded-lg border border-border bg-card px-4 py-2 text-white transition-colors focus:border-primary focus:outline-none"
-                value={newUser.role}
-                onChange={(e) => setNewUser({ ...newUser, role: e.target.value as 'admin' | 'user' })}
-              >
-                <option value="user">Regular User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-muted">Initial access</label>
-              <select
-                className="w-full rounded-lg border border-border bg-card px-4 py-2 text-white transition-colors focus:border-primary focus:outline-none"
-                value={newUser.status}
-                onChange={(e) => setNewUser({ ...newUser, status: e.target.value as UserStatus })}
-              >
-                <option value="approved">Approved</option>
-                <option value="pending">Pending</option>
-                <option value="blocked">Blocked</option>
-                <option value="rejected">Rejected</option>
-              </select>
-            </div>
-            <Button type="submit" className="w-full" disabled={creating}>
-              {creating ? <><Loader2 className="mr-2 animate-spin" size={18} /> Creating...</> : 'Create user'}
-            </Button>
-          </form>
-        </Card>
-
-        <Card className="overflow-hidden border-none p-0 xl:col-span-2">
+      <div className="grid grid-cols-1 gap-8">
+        <Card className="overflow-hidden border-none p-0">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
               <thead>
